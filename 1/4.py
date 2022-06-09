@@ -6,5 +6,6 @@
 
 a, b, c = 0, 1, 2
 print(f"Было: {a=}, {b=}, {c=}")
-a, c = c, a
+a, b = b, a
+b, c = c, b
 print(f"Стало: {a=}, {b=}, {c=}")
