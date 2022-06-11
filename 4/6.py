@@ -4,5 +4,5 @@
 
 inps = [None]
 while inps[-1] != "q":
-    inps.append(input("Вветиде строку: "))
+    inps.append(input("Введите строку: "))
 print(inps[1:])
