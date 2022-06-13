@@ -20,29 +20,50 @@ class RectangularParallelepiped:
         return methods
 
     def __init__(self, a: float, b: float, h: float):
-        self.a = a
-        self.b = b
-        self.h = h
+        self.__a = a
+        self.__b = b
+        self.__h = h
 
     def get_volume(self) -> float:
         if self.__volume is None:
-            self.__volume = self.a * self.b * self.h
+            self.__volume = self.__a * self.__b * self.__h
         return self.__volume
 
     def get_base_area(self) -> float:
         if self.__base_area is None:
-            self.__base_area = self.a * self.b * self.h
+            self.__base_area = self.__a * self.__b * self.__h
         return self.__base_area
 
     def get_side_area_a(self) -> float:
         if self.__side_area_a is None:
-            self.__side_area_a = self.a * self.h
+            self.__side_area_a = self.__a * self.__h
         return self.__side_area_a
 
     def get_side_area_b(self) -> float:
         if self.__side_area_b is None:
-            self.__side_area_b = self.b * self.h
+            self.__side_area_b = self.__b * self.__h
         return self.__side_area_b
+
+    def set_a(self, a: float):
+        self.__a = a
+        if self.__a is not None:
+            self.__volume = None
+            self.__base_area = None
+            self.__side_area_a = None
+
+    def set_b(self, b: float):
+        self.__b = b
+        if self.__b is not None:
+            self.__volume = None
+            self.__base_area = None
+            self.__side_area_b = None
+
+    def set_h(self, h: float):
+        self.__h = h
+        if self.__a is not None:
+            self.__volume = None
+            self.__side_area_a = None
+            self.__side_area_b = None
 
 
 if __name__ == "__main__":
