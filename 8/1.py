@@ -6,12 +6,12 @@ from requests import get
 from requests.exceptions import MissingSchema
 
 
-def get_status(URL: str):
+def get_status(url: str):
     try:
-        res = get(URL)
+        res = get(url)
     except MissingSchema:
-        return -1, URL
-    return res.status_code, URL
+        return -1, url
+    return res.status_code, url
 
 
 if __name__ == "__main__":
