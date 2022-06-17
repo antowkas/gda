@@ -9,12 +9,12 @@ from re import findall
 
 
 def get_res(url: str, values: list):
-    url = url.split("/")
-    url, keys = "/".join(url[:-1]), findall(r"[?&](.+?)=@", url[-1])
+    url, keys = url.split("?")
+    keys = "?"+keys
+    keys = findall(r"[?&](.+?)=@", keys)
     if len(keys) != len(values):
         return -1
-    url = f"{url}/?" + "&".join([f"{keys[i]}={values[i]}" for i in range(len(keys))])
-
+    url = f"{url}?" + "&".join([f"{keys[i]}={values[i]}" for i in range(len(keys))])
     try:
         res = get(url)
     except MissingSchema:
@@ -25,4 +25,4 @@ def get_res(url: str, values: list):
 
 
 if __name__ == "__main__":
-    print(get_res("https://www.google.com/search?q=@", ["test"]))
+    print(get_res("https://www.duckduckgo.com/?q=@", ["test"]))
