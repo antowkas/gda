@@ -3,7 +3,7 @@
 # - и возвращает код статуса, полученный в ответе на GET-запрос по данному URL, а также сам URL.
 
 from requests import get
-from requests.exceptions import MissingSchema
+from requests.exceptions import MissingSchema, ConnectionError
 
 
 def get_status(url: str):
@@ -11,6 +11,8 @@ def get_status(url: str):
         res = get(url)
     except MissingSchema:
         return -1, url
+    except ConnectionError:
+        return -2, url
     return res.status_code, url
 
 
