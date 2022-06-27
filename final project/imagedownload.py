@@ -4,7 +4,7 @@ import time
 import asyncio
 from requests import get
 from bs4 import BeautifulSoup
-from re import match
+from re import match, search as search
 import shutil
 
 
@@ -23,6 +23,10 @@ def get_img_urls_from_url(url: str) -> str:
     for i in range(len(img_tags)):
         img_url: str = img_tags[i]['src']
         if match(r".*\.(png|jpg|gif|jpeg|bmp|pcx|raw|svg)$", img_url.lower()[-4:]):
+            if img_url[0] == "/":
+                pattern = r"(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b)"
+                main_url = search(pattern, url).group(0)
+                img_url = main_url + img_url
             yield img_url
 
 
@@ -45,6 +49,7 @@ async def download_images_from_url(url: str) -> None:
         print(f"Найден ({img_url}) ({filename})")
         tasks.append(asyncio.create_task(download_image_from_url(img_url, filename)))
     await asyncio.wait(tasks)
+
 
 if __name__ == "__main__":
     asyncio.run(download_images_from_url("https://stopgame.ru/news"))
